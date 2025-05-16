@@ -1,0 +1,24 @@
+<h2>Mis préstamos</h2>
+
+<table class="table table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>ID Préstamo</th>
+      <th>Material Titulo</th>
+      <th>Fecha Préstamo</th>
+      <th>Fecha Devolución</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of prestamos">
+      <td>{{ p.id_Prestamo }}</td>
+      <td>{{ p.materialEntity.titulo }}</td>
+      <td>{{ p.fecha_prestamo | date }}</td>
+      <td>{{ p.fecha_devolucion | date }}</td>
+      <td>
+        <button class="btn btn-success" (click)="devolverPrestamo(p.id_Prestamo)">Devolver</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
