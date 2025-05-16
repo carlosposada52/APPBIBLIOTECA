@@ -20,6 +20,7 @@ export class AgregarMaterialesComponent {
   categorias: Categoria[] = [];
    archivoSeleccionado!: File;
    materiales: Material[] = [];
+   idiomas: Idioma[] = [];
 
    filtrobusqueda:string = '';
 
@@ -33,11 +34,17 @@ export class AgregarMaterialesComponent {
     this.materialServicio.getCategorias().subscribe(data => {
       this.categorias = data;
     });
+
+
+      this.materialServicio.getIdiomas().subscribe(data => {
+    this.idiomas = data;
+  });
   }
 
   guardarMaterial() {
 
     this.material.idCategoria = { id: this.material.idCategoria }; 
+    this.material.idIdioma = { id: this.material.idIdioma };
     this.materialServicio.registrarMaterial(this.material).subscribe(dato => {
       console.log(dato);
       this.irALaListaMateriales();

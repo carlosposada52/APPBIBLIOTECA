@@ -24,6 +24,7 @@ import { ActualizarMaterialesComponent } from './actualizar-materiales/actualiza
 import { MaterialDetalleComponent } from './material-detalle/material-detalle.component';
 import { PrestarMaterialComponent } from './prestar-material/prestar-material.component';
 import { DevolverPrestamoComponent } from './devolver-prestamo/devolver-prestamo.component';
+import { MisPrestamosComponent } from './mis-prestamos/mis-prestamos.component';
 
 const routes: Routes = [
   {
@@ -52,10 +53,10 @@ const routes: Routes = [
       { path: 'details_material/:id', component: MaterialDetalleComponent , canActivate: [adminGuard] },
        { path: 'list_materiales_prestar', component:PrestarMaterialComponent },
        {path: 'devolver_prestamo',component:DevolverPrestamoComponent},
+       {path: 'mis_prestamos',component:MisPrestamosComponent},
 
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
-
 
   },
 

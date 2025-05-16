@@ -83,7 +83,8 @@ export class ListaMaterialesComponent {
       material.tipomaterial?.toLowerCase().includes(filtro) ||
       material.aniopublicacion?.toString().includes(filtro) ||
       material.stockdisponible?.toString().includes(filtro) ||
-      material.idCategoria?.nombreCategoria?.toLowerCase().includes(filtro)
+      material.idCategoria?.nombreCategoria?.toLowerCase().includes(filtro) ||
+      material.idIdioma?.nombreIdioma?.toLowerCase().includes(filtro)
     );
 
     // Paginación: Solo devolver los elementos de la página actual

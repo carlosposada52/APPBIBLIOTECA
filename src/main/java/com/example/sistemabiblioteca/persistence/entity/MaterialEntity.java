@@ -45,7 +45,11 @@ public class MaterialEntity {
     private String imagen_portada;
 
   @ManyToOne
-    @JoinColumn(name = "IDCategoria")  // Corrige a "IDCATEGORIA" para que coincida con la base de datos
+    @JoinColumn(name = "IDCategoria")  
     private Categoriaentity idCategoria; 
+
+      @ManyToOne
+    @JoinColumn(name = "id_idioma")  
+    private IdiomaEntity idIdioma; 
 
 }

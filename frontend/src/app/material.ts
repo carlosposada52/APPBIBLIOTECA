@@ -1,6 +1,6 @@
 export class Material {
 
-      id_material:number;
+    id_material:number;
     titulo:string;
     autor:string;
     aniopublicacion : number;
@@ -8,5 +8,6 @@ export class Material {
     stockdisponible:number;
     imagen_portada:string;
     idCategoria: any;
+    idIdioma: any;
 
 }

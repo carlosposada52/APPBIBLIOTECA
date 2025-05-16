@@ -84,18 +84,22 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.PUT, "/api/materiales/{id}").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/api/materiales/{id}").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/api/materiales/upload").permitAll();
-                    http.requestMatchers(HttpMethod.POST, "/api/materiales/{materialId}/borrow/{usuarioId}").permitAll();
-                    http.requestMatchers(HttpMethod.DELETE, "/api/materiales/{materialid}/return/{usuarioid}").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/api/materiales/{materialId}/borrow/{usuarioId}")
+                            .permitAll();
+                    http.requestMatchers(HttpMethod.DELETE, "/api/materiales/{materialid}/return/{usuarioid}")
+                            .permitAll();
 
                     http.requestMatchers(HttpMethod.GET, "/api/prestamos").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/api/prestamos").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/api/prestamos/{id}").permitAll();
-                  //  http.requestMatchers(HttpMethod.PUT, "/api/prestamos/{id}").permitAll();
+                    // http.requestMatchers(HttpMethod.PUT, "/api/prestamos/{id}").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/api/prestamos/{id}").permitAll();
-                     http.requestMatchers(HttpMethod.POST, "/api/prestamos/{id_prestamo}/return").permitAll();
-                     http.requestMatchers("/saveImage/**").permitAll();
-                       http.requestMatchers(HttpMethod.GET, "/api/prestamos/usuario/{usuarioId}").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/api/prestamos/{id_prestamo}/return").permitAll();
+                    http.requestMatchers("/saveImage/**").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/api/prestamos/usuario/{usuarioId}").permitAll();
 
+                    http.requestMatchers(HttpMethod.GET, "/api/historial").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/api/historial/usuario/{usuarioId}").permitAll();
 
                     http.requestMatchers(HttpMethod.DELETE, "/user/{id}").permitAll();
                     http.requestMatchers("/home").permitAll();
@@ -200,7 +204,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance(); // contraseña sin cifrar
     }
-
-    
 
 }

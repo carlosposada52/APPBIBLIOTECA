@@ -31,6 +31,7 @@ import { ActualizarMaterialesComponent } from './actualizar-materiales/actualiza
 import { MaterialDetalleComponent } from './material-detalle/material-detalle.component';
 import { PrestarMaterialComponent } from './prestar-material/prestar-material.component';
 import { DevolverPrestamoComponent } from './devolver-prestamo/devolver-prestamo.component';
+import { MisPrestamosComponent } from './mis-prestamos/mis-prestamos.component';
 
 
 
@@ -58,7 +59,8 @@ import { DevolverPrestamoComponent } from './devolver-prestamo/devolver-prestamo
     ActualizarMaterialesComponent,
     MaterialDetalleComponent,
     PrestarMaterialComponent,
-    DevolverPrestamoComponent
+    DevolverPrestamoComponent,
+    MisPrestamosComponent
   
   ],
   imports: [

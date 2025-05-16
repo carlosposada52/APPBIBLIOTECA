@@ -1,6 +1,6 @@
 export class Idioma {
 
-      id: number;
+    id: number;
     nombreIdioma: string;
     codigoISO: string;
 

@@ -14,56 +14,71 @@
           </a>
         </li>
 
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/add_user_biblio" routerLinkActive="active">
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/add_user_biblio"
+          routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">AGREGAR USUARIOS</span>
           </a>
         </li>
 
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_users" routerLinkActive="active">
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_users"
+          routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">VER USUARIOS</span>
           </a>
         </li>
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_idiomas" routerLinkActive="active">
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_idiomas"
+          routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">VER IDIOMAS</span>
           </a>
         </li>
-         <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_materiales" routerLinkActive="active">
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_materiales"
+          routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">VER MATERIALES</span>
           </a>
         </li>
 
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/dashboard_user" routerLinkActive="active">
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/dashboard_user"
+          routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">MIS ACTIVIDADES</span>
           </a>
         </li>
-         <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/list_materiales_prestar" routerLinkActive="active">
+
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/list_materiales_prestar"
+          routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="sliders"></i>
             <span class="align-middle">PRESTAR MATERIAL</span>
           </a>
-                   <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/devolver_prestamo" routerLinkActive="active">
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/devolver_prestamo"
+          routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="sliders"></i>
             <span class="align-middle">Devolver MATERIAL</span>
           </a>
         </li>
-          <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_materiales_prestar" routerLinkActive="active">
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_materiales_prestar"
+          routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="sliders"></i>
             <span class="align-middle">PRESTAR MATERIAL</span>
           </a>
         </li>
-
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/mis_prestamos"
+          routerLinkActive="active">
+          <a class="sidebar-link">
+            <i class="align-middle" data-feather="user"></i>
+            <span class="align-middle">Mi historial de prestamos</span>
+          </a>
+        </li>
       </ul>
     </div>
   </nav>

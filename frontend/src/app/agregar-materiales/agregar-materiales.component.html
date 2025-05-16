@@ -1,5 +1,5 @@
 <div class="col-md-6 offset-md-3">
-    <h3 class="text-center">Registro de idiomas</h3>
+    <h3 class="text-center">Registro de Materiales</h3>
     <form action="" (ngSubmit)="onSubmit()" #materialForm="ngForm">
         <div class="from-group">
             <label>titulo material</label>
@@ -122,11 +122,18 @@
                     {{ cat.nombreCategoria }}
                 </option>
             </select>
-
-      
-
         </div>
 
+        <div class="from-group">
+            <label>Idiomas</label>
+
+            <select [(ngModel)]="material.idIdioma" name="idIdioma" id="idIdioma" class="form-select" required >
+
+                <option *ngFor="let cat of idiomas" [value]="cat.id" required >
+                    {{ cat.nombreIdioma }}
+                </option>
+            </select>
+        </div>
 
 
         <button class="btn btn-success" [disabled]="!materialForm.form.valid">Guardar</button>

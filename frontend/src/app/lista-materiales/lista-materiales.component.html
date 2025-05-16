@@ -15,6 +15,7 @@
                 <th>stock</th>
                 <th>imagen </th>
                 <th>Categoria</th>
+                 <th>idioma</th>
                 <th>acciones</th>
 
             </tr>
@@ -30,13 +31,15 @@
                 <td><img [src]="'http://localhost:8080' + material.imagen_portada" alt="Imagen" width="100"></td>
 
                 <td>{{ material.idCategoria?.nombreCategoria || 'Sin categoría' }}</td>
+                 <td>{{ material.idIdioma?.codigoISO }}</td>
 
 
                 <td>
                     <button (click)="verDetallesMaterial(material.id_material)" class="btn btn-success">
                         <i class="fa-solid fa-eye"></i>
-                        ver</button>
+                        ver</button><br>
                     <button (click)="actualizarMaterial(material.id_material)" class="btn btn-info">actualizar</button>
+                    <br>
                     <button (click)="eliminarMaterial(material.id_material)" class="btn btn-danger">Eliminar</button>
 
                 </td>

@@ -74,6 +74,7 @@ public class MaterialController {
             materialExistente.setSTOCKDISPONIBLE(materialActualizado.getSTOCKDISPONIBLE());
             materialExistente.setImagen_portada(materialActualizado.getImagen_portada());
             materialExistente.setIdCategoria(materialActualizado.getIdCategoria());
+            materialExistente.setIdIdioma(materialActualizado.getIdIdioma());
             MaterialEntity materialGuardado = materialRepository.save(materialActualizado);
             return ResponseEntity.ok(materialGuardado);
         } else {
@@ -139,6 +140,7 @@ public class MaterialController {
         return ResponseEntity.ok(response);
     }
 
+    //metodo no usado para devolver el material
     @DeleteMapping("/materiales/{materialid}/return/{usuarioid}")
     public ResponseEntity<String> devolverMaterial(@PathVariable Long materialid, @PathVariable Long usuarioid) {
         try {

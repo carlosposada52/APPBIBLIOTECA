@@ -1,5 +1,5 @@
 <div class="col-md-6 offset-md-3">
-    <h3 class="text-center">Registro de idiomas</h3>
+    <h3 class="text-center">Actualizar Materiales</h3>
     <form action="" (ngSubmit)="onSubmit()" #materialForm="ngForm">
         <div class="from-group">
             <label>titulo material</label>
@@ -14,9 +14,7 @@
                 </div>
                 <div *ngIf="nombre.errors?.['maxlength']">
                     EL titulo del material no puede tener más de 20 caracteres
-                </div>
-
-            </div>
+             </div>
 
         </div>
         <div class="from-group">
@@ -38,6 +36,7 @@
             </div>
 
         </div>
+
         <div class="from-group">
             <label>Año publicación</label>
             <input type="number" class="form-control borde-negro" id="aniopublicacion"
@@ -122,10 +121,23 @@
                     {{ cat.nombreCategoria }}
                 </option>
             </select>
+         </div>
 
       
-
         </div>
+        <div class="form-group">
+             <label>Idiomas</label>
+
+            <select [(ngModel)]="material.idIdioma" name="idIdioma" id="idIdioma" class="form-select" required >
+
+                <option *ngFor="let cat of idiomas" [value]="cat.id" required >
+                    {{ cat.nombreIdioma }}
+                </option>
+            </select>
+        </div>
+
+        
+        
 
 
 

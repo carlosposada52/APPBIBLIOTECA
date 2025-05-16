@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Categoria } from './categoria';
 import { Material } from './material';
 import { HttpClient } from '@angular/common/http';
+import { Idioma } from './idioma';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,10 @@ subirImagen(formData: FormData): Observable<{ url: string }> {
   
 getCategorias(): Observable<Categoria[]> {
   return this.httpClient.get<Categoria[]>(`${this.baseUrl2}/categorias`);
+}
+
+getIdiomas(): Observable<Idioma[]> {
+  return this.httpClient.get<Idioma[]>(`${this.baseUrl2}/idiomas`);
 }
 
 
