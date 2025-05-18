@@ -16,12 +16,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.sistemabiblioteca.Model.PrestamoDTO;
+import com.example.sistemabiblioteca.Model.PrestamoMultaDTO;
 import com.example.sistemabiblioteca.Repository.MaterialRepository;
 // Removed unused MaterialRepository import
 import com.example.sistemabiblioteca.Repository.PrestamoRepository;
+import com.example.sistemabiblioteca.Repository.UsuarioMoraRepository;
+import com.example.sistemabiblioteca.Service.MultaService;
 import com.example.sistemabiblioteca.Service.PrestamoService;
 import com.example.sistemabiblioteca.persistence.entity.MaterialEntity;
 import com.example.sistemabiblioteca.persistence.entity.PrestamoEntity;
+import com.example.sistemabiblioteca.persistence.entity.Usuarios_MoraEntity;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/")
@@ -34,7 +42,11 @@ public class PrestamoController {
      @Autowired
     private PrestamoService prestamoService;
 
+    @Autowired
+    private UsuarioMoraRepository usuarioMoreRepo;
 
+    @Autowired
+    private MultaService multaService;
 
    @GetMapping("/prestamos")
     public List<PrestamoEntity> listarTodasLasCategorias() {
@@ -108,6 +120,38 @@ public ResponseEntity<List<PrestamoEntity>> obtenerPrestamosPorUsuario(@PathVari
     return ResponseEntity.ok(prestamos);
 }
 
+
+    // Endpoint para obtener préstamos con estado de multa y penalización por usuario
+    @GetMapping("/prestamo/usuario/multa/{usuarioId}")
+    public ResponseEntity<List<PrestamoDTO>> obtenerPrestamosConEstado(@PathVariable Long usuarioId) {
+        List<PrestamoDTO> prestamosConEstado = prestamoService.obtenerPrestamosConEstado(usuarioId);
+        return ResponseEntity.ok(prestamosConEstado);
+    }
+
+    @PostMapping("pagar-multas/{idUsuario}")
+        public ResponseEntity<String> pagarMultas(@PathVariable Long idUsuario) {
+            multaService.pagarMultasPorUsuario(idUsuario);
+            return ResponseEntity.ok("Multas eliminadas correctamente.");
+        }
+    @GetMapping("usuarios_mora/all")
+    public ResponseEntity<Iterable<Usuarios_MoraEntity>> obtenerUsuariosMora() {
+        Iterable<Usuarios_MoraEntity> usuarioMora = usuarioMoreRepo.findAll();
+        return ResponseEntity.ok(usuarioMora);
+    }
+
+    
+    // Endpoint para eliminar multas y usuarios_mora por usuario
+    @DeleteMapping("/eliminar-multa/{idUsuario}")
+    public ResponseEntity<String> eliminarMultasYUsuariosMoraPorUsuario(@PathVariable Long idUsuario) {
+        try {
+            multaService.eliminarMultasYUsuariosMoraPorUsuario(idUsuario);
+            return ResponseEntity.ok("Multas y usuarios_mora eliminados para usuario ID: " + idUsuario);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al eliminar multas y usuarios_mora: " + e.getMessage());
+        }
+    }
+    
 
 
 }

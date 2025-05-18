@@ -10,6 +10,8 @@ export class UsuarioBiblio {
     tipo: string;
     direccion: string;
     fecha_registro: Date;
+    fechafin: Date;
+    fechainicio: Date;
    
    idCarrera: number;
    idFacultad: number;

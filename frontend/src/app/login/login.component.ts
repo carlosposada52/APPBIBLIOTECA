@@ -35,6 +35,7 @@ export class LoginComponent {
       localStorage.setItem('username', this.username);
       localStorage.setItem('idusuario', usuario.usuario?.idusuario);
        localStorage.setItem('idusuario', usuario.usuario?.idusuario);
+       localStorage.setItem('tipo',usuario.usuario?.tipo);
 
       if(this.username === 'administrador'){
         this.router.navigate(['/home'])

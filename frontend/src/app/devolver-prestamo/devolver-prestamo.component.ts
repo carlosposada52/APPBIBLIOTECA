@@ -6,6 +6,9 @@ import { PerfilService } from '../services/perfil.service';
 import { Prestamo } from '../prestamo';
 
 import { OnInit } from '@angular/core';
+import { MultaDto } from '../dto/multa-dto';
+import { MultaService } from '../services/multa.service';
+
 
 @Component({
   selector: 'app-devolver-prestamo',
@@ -16,15 +19,29 @@ import { OnInit } from '@angular/core';
 export class DevolverPrestamoComponent implements OnInit {
 
   prestamos: Prestamo[] = [];
+  prestamosconMulta: MultaDto[]=[];
   perfilCompleto!: PerfilDTO;
+  prestamoRetraso: MultaDto[] = [];
+  tieneMultasActivas: boolean = false;
+  estaPenalizado: boolean = false;
+  montoTotalMultas: number = 0;
+  multaSeleccionada: MultaDto | null = null;
+  prestamoMultaDia: MultaDto;
+  numeroTarjeta: string = '';
+tipoTarjeta: string = 'Desconocido';
+
 
   constructor(
     private prestamoServicio: PrestamoService,
     private route: Router,
-    private usuarioService: PerfilService
+    private usuarioService: PerfilService,
+    private multaService:MultaService
   ) { }
 
   ngOnInit(): void {
+
+     
+
     const id = localStorage.getItem('idusuario');
 
     if (id) {
@@ -39,20 +56,27 @@ export class DevolverPrestamoComponent implements OnInit {
           console.error('Error al cargar el perfil completo:', err);
         }
       });
-
-      // Cargar préstamos
-      this.prestamoServicio.obtenerPrestamosPorUsuario(usuarioId).subscribe({
-        next: (data) => {
-          this.prestamos = data;
-          console.log('Préstamos:', data);
-        },
-        error: (err) => {
-          console.error('Error al cargar los préstamos:', err);
-        }
-      });
-    } else {
-      console.warn('No se encontró el idusuario en el localStorage');
+        this.cargarPrestamos();
     }
+  }
+ 
+
+   cargarPrestamos() {
+     const id = localStorage.getItem('idusuario');
+     const usuarioId = Number(id);
+
+    this.multaService.obtenerPrestamosConEstado(usuarioId).subscribe({
+    next: (data) => {
+      this.prestamosconMulta = data;
+      this.tieneMultasActivas = data.some(p => p.tieneMulta);
+      this.estaPenalizado = data.some(p=> p.penalizado === true);
+      this.montoTotalMultas = data
+        .filter(p => p.tieneMulta)
+        .reduce((acc, p) => acc + (p.monto || 0), 0);
+      
+    },
+    error: (err) => console.error('Error al cargar préstamos', err),
+    });
   }
 
   devolverPrestamo(idPrestamo: number): void {
@@ -67,5 +91,15 @@ export class DevolverPrestamoComponent implements OnInit {
       }
     });
   }
+  
+detectarTipoTarjeta() {
+  if (this.numeroTarjeta.startsWith('4')) {
+    this.tipoTarjeta = 'Visa';
+  } else if (this.numeroTarjeta.startsWith('5')) {
+    this.tipoTarjeta = 'MasterCard';
+  } else {
+    this.tipoTarjeta = 'Desconocido';
+  }
+}
 }
 

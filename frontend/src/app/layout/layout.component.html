@@ -14,7 +14,7 @@
           </a>
         </li>
 
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/add_user_biblio"
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN' || user.roles[0].roleEnum == 'BIBLIOTECARIO'" routerLink="/add_user_biblio"
           routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
@@ -22,21 +22,21 @@
           </a>
         </li>
 
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_users"
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN' || user.roles[0].roleEnum == 'BIBLIOTECARIO'" routerLink="/list_users"
           routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">VER USUARIOS</span>
           </a>
         </li>
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_idiomas"
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN' || user.roles[0].roleEnum == 'BIBLIOTECARIO'" routerLink="/list_idiomas"
           routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">VER IDIOMAS</span>
           </a>
         </li>
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_materiales"
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN' || user.roles[0].roleEnum == 'BIBLIOTECARIO'" routerLink="/list_materiales"
           routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
@@ -44,7 +44,7 @@
           </a>
         </li>
 
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/dashboard_user"
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE' || !estaPenalizado()" routerLink="/dashboard_user"
           routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
@@ -52,31 +52,41 @@
           </a>
         </li>
 
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/list_materiales_prestar"
+        <li class="sidebar-item" *ngIf="!estaPenalizado() && user.roles[0].roleEnum == 'ESTUDIANTE' ||user.roles[0].roleEnum == 'ADMIN' || user.roles[0].roleEnum == 'BIBLIOTECARIO' || !estaPenalizado()" routerLink="/list_materiales_prestar"
           routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="sliders"></i>
             <span class="align-middle">PRESTAR MATERIAL</span>
           </a>
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/devolver_prestamo"
+        <li class="sidebar-item" *ngIf="!estaPenalizado() && user.roles[0].roleEnum == 'ESTUDIANTE' || user.roles[0].roleEnum == 'BIBLIOTECARIO'" routerLink="/devolver_prestamo"
           routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="sliders"></i>
             <span class="align-middle">Devolver MATERIAL</span>
           </a>
         </li>
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN'" routerLink="/list_materiales_prestar"
-          routerLinkActive="active">
-          <a class="sidebar-link">
-            <i class="align-middle" data-feather="sliders"></i>
-            <span class="align-middle">PRESTAR MATERIAL</span>
-          </a>
-        </li>
-        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE'" routerLink="/mis_prestamos"
+    
+        <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE' " routerLink="/mis_prestamos"
           routerLinkActive="active">
           <a class="sidebar-link">
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">Mi historial de prestamos</span>
+          </a>
+        </li>
+
+         <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ADMIN' || user.roles[0].roleEnum == 'BIBLIOTECARIO'" routerLink="/usuarios_mora"
+          routerLinkActive="active">
+          <a class="sidebar-link">
+            <i class="align-middle" data-feather="user"></i>
+            <span class="align-middle">VER USUARIOS MORA</span>
+          </a>
+        </li>
+
+        <li class="sidebar-item" *ngIf=" user.roles[0].roleEnum == 'BIBLIOTECARIO' || user.roles[0].roleEnum == 'ADMIN'" routerLink="/renovar_carnet"
+          routerLinkActive="active">
+          <a class="sidebar-link">
+            <i class="align-middle" data-feather="sliders"></i>
+            <span class="align-middle">RENOVAR CARNET</span>
           </a>
         </li>
       </ul>

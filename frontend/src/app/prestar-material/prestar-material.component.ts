@@ -4,6 +4,8 @@ import { MaterialServiceService } from '../material-service.service';
 import { Router } from '@angular/router';
 import { PerfilDTO } from '../dto/perfil-dto';
 import { PerfilService } from '../services/perfil.service';
+import { MultaDto } from '../dto/multa-dto';
+import { MultaService } from '../services/multa.service';
 
 @Component({
   selector: 'app-prestar-material',
@@ -19,14 +21,20 @@ export class PrestarMaterialComponent {
   itemsPerPage: number = 5;
   materiales: Material[];
   perfilCompleto!: PerfilDTO;
+  multa: MultaDto[] = [];
 
-  constructor(private Materialservicio: MaterialServiceService, private route: Router, private usuarioService:PerfilService) {
+  constructor(private Materialservicio: MaterialServiceService,
+     private route: Router, 
+     private usuarioService:PerfilService,
+     private usuarioMulta:MultaService
+    ) {
 
   }
 
   ngOnInit(): void {
     this.obtenerMateriales();
     const id = localStorage.getItem('idusuario');
+    const idusuario = Number(id);
 
     if (id) {
       this.usuarioService.getPerfil(Number(id)).subscribe({
@@ -41,7 +49,12 @@ export class PrestarMaterialComponent {
     } else {
       console.warn('No se encontró el idusuario en el localStorage');
     }
+
+     this.usuarioMulta.obtenerPrestamosConEstado(idusuario).subscribe((data: MultaDto[]) => {
+      this.multa = data;
+    });
   }
+  
 
   obtenerMateriales() {
     this.Materialservicio.obtenerListaMateriales().subscribe(dato => {
@@ -49,6 +62,9 @@ export class PrestarMaterialComponent {
     });
   }
 
+  tieneMultaActiva(): boolean {
+  return this.multa.some(m => m.tieneMulta === true);
+}
 
    verDetallesMaterial(id: number) {
     this.route.navigate(['borrow_material', id]);

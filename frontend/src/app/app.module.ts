@@ -32,6 +32,9 @@ import { MaterialDetalleComponent } from './material-detalle/material-detalle.co
 import { PrestarMaterialComponent } from './prestar-material/prestar-material.component';
 import { DevolverPrestamoComponent } from './devolver-prestamo/devolver-prestamo.component';
 import { MisPrestamosComponent } from './mis-prestamos/mis-prestamos.component';
+import { PagarMultasComponent } from './pagar-multas/pagar-multas.component';
+import { UsuariosMoraComponent } from './usuarios-mora/usuarios-mora.component';
+import { RenovarCarnetComponent } from './renovar-carnet/renovar-carnet.component';
 
 
 
@@ -60,7 +63,10 @@ import { MisPrestamosComponent } from './mis-prestamos/mis-prestamos.component';
     MaterialDetalleComponent,
     PrestarMaterialComponent,
     DevolverPrestamoComponent,
-    MisPrestamosComponent
+    MisPrestamosComponent,
+    PagarMultasComponent,
+    UsuariosMoraComponent,
+    RenovarCarnetComponent
   
   ],
   imports: [

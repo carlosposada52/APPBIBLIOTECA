@@ -179,6 +179,12 @@ public class UsuarioBilbioController {
         ActualizarDocenteDTO dto = usuarioBilbioService.ObtenerDocentePorUsuarioId(id);
         return ResponseEntity.ok(dto);
     }
+
+     @PutMapping("/renovar/{id}/carnet")
+    public ResponseEntity<?> renovarCarnet(@PathVariable Long id) {
+        usuarioBilbioService.renovarCarnetYMembership(id);
+         return ResponseEntity.ok(Map.of("mensaje", "Carnet y membresía renovados por 1 año"));
+    }
     
 
    

@@ -7,6 +7,8 @@ import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user.service';
 import { PerfilDTO } from '../dto/perfil-dto';
 import { PerfilService } from '../services/perfil.service';
+import { MultaDto } from '../dto/multa-dto';
+import { MultaService } from '../services/multa.service';
 
 @Component({
   selector: 'app-layout',
@@ -21,10 +23,13 @@ export class LayoutComponent {
   user: any;
   username: string = '';
   roleEnum: string = '';
-   perfilCompleto!: PerfilDTO;
+  perfilCompleto!: PerfilDTO;
+  multa: MultaDto[] = [];
+  esPenalizado: boolean = false;
    
   constructor(private router: Router,private authService: AuthService, private userService: UserService, private route: ActivatedRoute,
-    private  usuarioService:PerfilService
+    private  usuarioService:PerfilService,
+    private usuarioMulta:MultaService
   ) {
 
     this.router.events
@@ -52,6 +57,8 @@ export class LayoutComponent {
   }
 
   ngOnInit(): void {
+
+    
     this.authService.getUserRole().subscribe({
       next: (rol) => this.role = rol,
       error: () => this.role = null
@@ -88,11 +95,21 @@ export class LayoutComponent {
     }
   });
 }
+
+ const idusu = localStorage.getItem('idusuario');
+    const idusuario = Number(idusu);
+    
+    this.usuarioMulta.obtenerPrestamosConEstado(idusuario).subscribe((data: MultaDto[]) => {
+    this.multa = data;
+    this.esPenalizado = this.multa.some(m => m.penalizado);
+  });
   
     
   }
   
- 
+  estaPenalizado(): boolean {
+  return this.multa.some(m => m.penalizado === true);
+}
 
   setRouteName(url: string) {
   if (url.startsWith('/details_user/')) {
@@ -126,6 +143,15 @@ export class LayoutComponent {
        case '/dashboard_user':
         this.currentRouteName = 'Mis actividades';
         break;
+      case '/pagar_multa':
+        this.currentRouteName = 'Pagar Multa';
+       break;
+      case '/usuarios_mora':
+        this.currentRouteName = 'Detalles de usuarios con mora';
+       break;
+      case '/renovar_carnet':
+        this.currentRouteName = 'Renovacion del carnet';
+       break;
       default:
         this.currentRouteName = 'Dashboard';
         break;

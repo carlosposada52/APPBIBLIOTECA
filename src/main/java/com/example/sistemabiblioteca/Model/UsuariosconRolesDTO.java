@@ -34,6 +34,11 @@ public class UsuariosconRolesDTO {
 
     private EspecialidadModel especialidad;
 
+    
+    private Date fechainicio;
+    private Date fechafin;
+    private Long estadoMembresia;
+
     //constructor si es bibliotecario
     public UsuariosconRolesDTO(Long idusuario, String carnet, String nombre, String apellido1, String apellido2,
             String email, String telefono, String tipo, String direccion, Date fecha_registro, List<String> roles,
@@ -105,5 +110,23 @@ public class UsuariosconRolesDTO {
         }
        
     }
+    public UsuariosconRolesDTO(Long idusuario, String carnet, String nombre, String apellido1, String apellido2,
+    String email, String telefono, String tipo, String direccion, Date fecha_registro,
+    CarreraDTO carrera, FacultadDTO facultad, List<String> roles) {
+    
+    this.idusuario = idusuario;
+    this.carnet = carnet;
+    this.nombre = nombre;
+    this.apellido1 = apellido1;
+    this.apellido2 = apellido2;
+    this.email = email;
+    this.telefono = telefono;
+    this.tipo = tipo;
+    this.direccion = direccion;
+    this.fecha_registro = fecha_registro;
+    this.carrera = carrera;
+    this.facultad = facultad;
+    this.roles = roles;
+}
             
 }

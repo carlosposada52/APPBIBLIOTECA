@@ -25,6 +25,9 @@ import { MaterialDetalleComponent } from './material-detalle/material-detalle.co
 import { PrestarMaterialComponent } from './prestar-material/prestar-material.component';
 import { DevolverPrestamoComponent } from './devolver-prestamo/devolver-prestamo.component';
 import { MisPrestamosComponent } from './mis-prestamos/mis-prestamos.component';
+import { PagarMultasComponent } from './pagar-multas/pagar-multas.component';
+import { UsuariosMoraComponent } from './usuarios-mora/usuarios-mora.component';
+import { RenovarCarnetComponent } from './renovar-carnet/renovar-carnet.component';
 
 const routes: Routes = [
   {
@@ -51,9 +54,12 @@ const routes: Routes = [
       { path: 'add_material', component: AgregarMaterialesComponent , canActivate: [adminGuard] },
       { path: 'update_material/:id', component: ActualizarMaterialesComponent, canActivate: [adminGuard]  },
       { path: 'details_material/:id', component: MaterialDetalleComponent , canActivate: [adminGuard] },
-       { path: 'list_materiales_prestar', component:PrestarMaterialComponent },
-       {path: 'devolver_prestamo',component:DevolverPrestamoComponent},
-       {path: 'mis_prestamos',component:MisPrestamosComponent},
+      { path: 'list_materiales_prestar', component:PrestarMaterialComponent },
+      { path: 'devolver_prestamo',component:DevolverPrestamoComponent},
+      { path: 'mis_prestamos',component:MisPrestamosComponent},
+      { path: 'pagar_multa',component:PagarMultasComponent},
+      { path: 'usuarios_mora', component:UsuariosMoraComponent, canActivate: [adminGuard]},
+      { path: 'renovar_carnet', component:RenovarCarnetComponent, canActivate: [adminGuard]},
 
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]

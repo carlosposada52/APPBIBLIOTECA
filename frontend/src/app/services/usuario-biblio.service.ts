@@ -6,6 +6,7 @@ import { UsuarioBiblio } from '../usuario-biblio';
 import { ActualizarEstudiante } from '../dto/actualizar-estudiante';
 import { ActualizarBibliotecario } from '../dto/actualizar-bibliotecario';
 import { ActualizarDocente } from '../dto/actualizar-docente';
+import { MultaDto } from '../dto/multa-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -85,6 +86,12 @@ export class UsuarioBiblioService {
     getUserCount(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/count`);
   }
+
+   //metodo para renovar el carnet
+  renovarCarnet(id: number): Observable<any> {
+  return this.http.put(`http://localhost:8080/user_biblio/renovar/${id}/carnet`, {});
+}
+
 
   
 }

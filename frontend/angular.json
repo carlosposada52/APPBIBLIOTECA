@@ -51,11 +51,14 @@
               "src/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css",
               "src/assets/vendor/select2/select2.min.css",
               "src/assets/vendor/css-hamburgers/hamburgers.min.css"
+             
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/vendor/tilt/tilt.jquery.min.js",
-              "src/assets/js/plugins/chartjs.min.js"
+              "src/assets/js/plugins/chartjs.min.js",
+               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+             
             ]
           },
           "configurations": {

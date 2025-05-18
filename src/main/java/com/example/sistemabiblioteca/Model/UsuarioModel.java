@@ -3,6 +3,7 @@ package com.example.sistemabiblioteca.Model;
 import java.sql.Date;
 import com.example.sistemabiblioteca.persistence.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,6 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "USUARIO")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UsuarioModel {
 
     @Id
@@ -47,6 +49,8 @@ public class UsuarioModel {
     @Column(name = "FECHAREGISTRO")
     private Date fecha_registro;
 
+    @Column(name = "FECHAVENCIMIENTO")
+    private Date fecha_vencimiento;
   
      @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
      @JsonBackReference

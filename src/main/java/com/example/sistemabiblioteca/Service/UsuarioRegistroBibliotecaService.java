@@ -13,7 +13,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.sistemabiblioteca.Model.ActualizarBibliotecarioDTO;
 import com.example.sistemabiblioteca.Model.ActualizarDocenteDTO;
@@ -23,6 +25,7 @@ import com.example.sistemabiblioteca.Model.CarrerasModel;
 import com.example.sistemabiblioteca.Model.EspecialidadModel;
 import com.example.sistemabiblioteca.Model.EstudianteModel;
 import com.example.sistemabiblioteca.Model.FacultadModel;
+import com.example.sistemabiblioteca.Model.MembresiaModel;
 import com.example.sistemabiblioteca.Model.PerfilDTO;
 import com.example.sistemabiblioteca.Model.ProfesorModel;
 import com.example.sistemabiblioteca.Model.RegistroCompletoDTO;
@@ -77,6 +80,9 @@ public class UsuarioRegistroBibliotecaService {
 
         @Autowired
         private TipoContratoRepository contratoRepository;
+
+        @Autowired
+        private MembresiaRepository membresiaRepository;
 
     UsuarioRegistroBibliotecaService() {
         
@@ -234,6 +240,7 @@ Optional<BibliotecarioModel> biblioOpt = bibliotecarioRepository.findByUsuario(u
             especialidad = profe.getEspecialidad();
             tipoContrato = profe.getContrato_id();
         }
+         Optional<MembresiaModel> membresiaOpt = membresiaRepository.findByUsuarioAndEstado(usuario, 1);
 
         UsuariosconRolesDTO dto = new UsuariosconRolesDTO(
             usuario.getIdusuario(),
@@ -258,6 +265,14 @@ Optional<BibliotecarioModel> biblioOpt = bibliotecarioRepository.findByUsuario(u
         
         //si el usuario es docente
         dto.setEspecialidad(especialidad);
+
+          // datos de membresía
+                    if (membresiaOpt.isPresent()) {
+                        MembresiaModel membresia = membresiaOpt.get();
+                        dto.setFechainicio(membresia.getFechaInicio());
+                        dto.setFechafin(membresia.getFechaFin());
+                        dto.setEstadoMembresia(membresia.getEstado());
+                    }
         resultado.add(dto);
     }
 
@@ -490,5 +505,19 @@ Optional<BibliotecarioModel> biblioOpt = bibliotecarioRepository.findByUsuario(u
 
             return DocenteDto;
         }
+
+            //sercicio para renovar la fecha de vencimiento de carnet y membresia
+        
+    public void renovarCarnetYMembership(Long idUsuario) {
+     
+       
+        // Renovar membresía activa (estado = 1)
+        MembresiaModel membresia = membresiaRepository.findByUsuario_IdusuarioAndEstado(idUsuario, 1L);
+        if (membresia != null) {
+            membresia.setFechaInicio(Date.valueOf(LocalDate.now()));
+            membresia.setFechaFin(Date.valueOf(LocalDate.now().plusYears(1)));
+            membresiaRepository.save(membresia);
+        }
+    }
 
 }

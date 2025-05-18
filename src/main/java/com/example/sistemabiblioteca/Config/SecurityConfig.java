@@ -97,12 +97,22 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/api/prestamos/{id_prestamo}/return").permitAll();
                     http.requestMatchers("/saveImage/**").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/api/prestamos/usuario/{usuarioId}").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/api/prestamo/usuario/multa/{usuarioId}").permitAll();
+
+                    http.requestMatchers(HttpMethod.PUT,"/user_biblio/renovar/{id}/carnet").permitAll();
+
 
                     http.requestMatchers(HttpMethod.GET, "/api/historial").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/api/historial/usuario/{usuarioId}").permitAll();
 
+                    http.requestMatchers(HttpMethod.GET, "/api/usuarios_mora/all").permitAll();
+                    
+                    http.requestMatchers(HttpMethod.POST, "/api/pagar-multas/{idUsuario}").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/user/{id}").permitAll();
+                     http.requestMatchers(HttpMethod.DELETE, "/api/eliminar-multa/{idUsuario}").permitAll();
                     http.requestMatchers("/home").permitAll();
+
+                     http.requestMatchers(HttpMethod.GET, "/api/prestamos/estado").permitAll();
 
                     http.anyRequest().denyAll();
                 })

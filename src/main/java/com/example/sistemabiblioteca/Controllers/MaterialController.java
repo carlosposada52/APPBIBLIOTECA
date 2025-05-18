@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.sistemabiblioteca.Model.PrestamoMultaDTO;
 import com.example.sistemabiblioteca.Repository.MaterialRepository;
 import com.example.sistemabiblioteca.Service.PrestamoService;
 import com.example.sistemabiblioteca.persistence.entity.MaterialEntity;
@@ -150,5 +151,7 @@ public class MaterialController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+   
 
 }

@@ -1,16 +1,26 @@
 package com.example.sistemabiblioteca.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.sistemabiblioteca.Model.PrestamoDTO;
+import com.example.sistemabiblioteca.Model.PrestamoMultaDTO;
 import com.example.sistemabiblioteca.Model.UsuarioModel;
 import com.example.sistemabiblioteca.Repository.MaterialRepository;
+import com.example.sistemabiblioteca.Repository.MultaRepository;
 import com.example.sistemabiblioteca.Repository.PrestamoRepository;
+import com.example.sistemabiblioteca.Repository.UsuarioMoraRepository;
 import com.example.sistemabiblioteca.Repository.UsuarioRepository;
 import com.example.sistemabiblioteca.persistence.entity.MaterialEntity;
+import com.example.sistemabiblioteca.persistence.entity.MultaEntity;
 import com.example.sistemabiblioteca.persistence.entity.PrestamoEntity;
+import java.util.Optional;
 
 @Service
 public class PrestamoService {
@@ -22,7 +32,16 @@ public class PrestamoService {
     private PrestamoRepository prestamoRepository;
 
     @Autowired
-private UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioMoraRepository usuarios_moraRepo;
+
+    @Autowired
+    private MultaRepository multaRepo;
+
+    @Autowired
+    private UsuarioMoraService usuarioMoraService;
 
 //funcion para prestar material
 
@@ -56,13 +75,13 @@ private UsuarioRepository usuarioRepository;
     java.util.Date fechaDevolucion;
     if (tipo.equals("ESTUDIANTE")) {
         fechaDevolucion = new java.util.Date(now.getTime() + 5L * 24 * 60 * 60 * 1000); // 5 días
-    } else {
+    } else{
         fechaDevolucion = new java.util.Date(now.getTime() + 90L * 24 * 60 * 60 * 1000); // 3 meses
     }
 
     // Crear y guardar el préstamo
     PrestamoEntity prestamo = new PrestamoEntity();
-    prestamo.setId_usuario(usuarioId);
+    prestamo.setUsuario(usuario);
     prestamo.setMaterialEntity(material);
     prestamo.setFecha_prestamo(new java.sql.Date(now.getTime()));
     prestamo.setFecha_devolucion(new java.sql.Date(fechaDevolucion.getTime()));
@@ -85,6 +104,60 @@ private UsuarioRepository usuarioRepository;
 public List<PrestamoEntity> obtenerPrestamosPorUsuario(Long usuarioId) {
     return prestamoRepository.findPrestamosByUsuarioId(usuarioId);
 }
+
+   public List<PrestamoDTO> obtenerPrestamosConEstado(Long usuarioId) {
+           List<PrestamoEntity> prestamos = prestamoRepository.findPrestamosByUsuarioId(usuarioId);
+              // Fecha actual para la consulta de penalización
+    Date fechaActual = new Date();
+
+  
+     // Chequear si el usuario tiene mora activa
+    boolean tienePenalizacion = usuarioMoraService.tieneMoraActiva(usuarioId);
+
+    List<PrestamoDTO> resultado = new ArrayList<>();
+
+    for (PrestamoEntity prestamo : prestamos) {
+        Long idPrestamo = prestamo.getId_Prestamo();
+        Date fechaDevolucion = prestamo.getFecha_devolucion();
+        Date fechaDevolucionReal = prestamo.getFechaDevolucionReal();
+        Date fechaPrestamo = prestamo.getFecha_prestamo();
+
+        // Comparar fecha actual si aún no se ha devuelto
+        Date fechaComparacion = (fechaDevolucionReal != null) ? fechaDevolucionReal : new Date();
+        boolean estaRetrasado = fechaComparacion.after(fechaDevolucion);
+
+        // Consultar si tiene multa y si está penalizado
+        boolean tieneMulta = multaRepo.existsByIdPrestamo(idPrestamo);
+        
+       
+        Double montoMulta = 0.0;
+        int dias_retraso=0;
+          Optional<MultaEntity> multa = multaRepo.findByIdPrestamo(idPrestamo);
+            if (multa.isPresent()) {
+                MultaEntity multaEntity = multa.get();
+                montoMulta = multaEntity.getMonto();
+                dias_retraso = (multaEntity.getDiasRetraso() != null) ? multaEntity.getDiasRetraso() : 0;
+            
+            }
+        PrestamoDTO dto = new PrestamoDTO();
+        dto.setIdPrestamo(idPrestamo);
+        dto.setNombreUsuario(prestamo.getUsuario().getNombre());
+        dto.setFechaDevolucion(fechaDevolucion);
+        dto.setFechaDevolucionReal(fechaDevolucionReal);
+        dto.setFechaPrestamo(fechaPrestamo);
+        dto.setEstaRetrasado(estaRetrasado);
+        dto.setTieneMulta(tieneMulta);
+          // Puedes agregar esta info al DTO, por ejemplo:
+        dto.setPenalizado(tienePenalizacion);
+        dto.setTituloMaterial(prestamo.getMaterialEntity() != null ? prestamo.getMaterialEntity().getTitulo() : null);
+        dto.setMonto(montoMulta);
+        dto.setDias_retraso(dias_retraso);
+        resultado.add(dto);
+    }
+
+    return resultado;
+}
+
 
 
 }
