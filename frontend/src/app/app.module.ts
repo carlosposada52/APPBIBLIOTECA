@@ -35,6 +35,7 @@ import { MisPrestamosComponent } from './mis-prestamos/mis-prestamos.component';
 import { PagarMultasComponent } from './pagar-multas/pagar-multas.component';
 import { UsuariosMoraComponent } from './usuarios-mora/usuarios-mora.component';
 import { RenovarCarnetComponent } from './renovar-carnet/renovar-carnet.component';
+import { NotificacionComponent } from './notificacion/notificacion.component';
 
 
 
@@ -66,7 +67,8 @@ import { RenovarCarnetComponent } from './renovar-carnet/renovar-carnet.componen
     MisPrestamosComponent,
     PagarMultasComponent,
     UsuariosMoraComponent,
-    RenovarCarnetComponent
+    RenovarCarnetComponent,
+    NotificacionComponent
   
   ],
   imports: [

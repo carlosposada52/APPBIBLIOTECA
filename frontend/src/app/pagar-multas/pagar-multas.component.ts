@@ -15,6 +15,7 @@ export class PagarMultasComponent {
   tipoTarjetaCredito: string | null = null;
   tipoTarjetaDebito: string | null = null;
    idUsuario: number = Number(localStorage.getItem('idusuario'));
+   idPrestamo:number;
 
   constructor(
     private multaService:MultaService,

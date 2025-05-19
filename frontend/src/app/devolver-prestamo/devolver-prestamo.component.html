@@ -43,9 +43,13 @@
      <div *ngIf="montoTotalMultas > 0" class="total-multas small-text">
           <p>💰 Total acumulado de multas: ${{ montoTotalMultas | number:'1.2-2' }}</p>
        </div>
-    <button type="button"  class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver detalles de mi multa</button>
+   
     
 </div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-info"  routerLink="/pagar_multa"
+          routerLinkActive="active">Pagar Multa</button>
 
 
     
@@ -62,11 +66,14 @@
      <div *ngIf="montoTotalMultas > 0" class="total-multas small-text">
           <p>💰 Total acumulado de multas: ${{ montoTotalMultas | number:'1.2-2' }}</p>
   </div>
+  
 
 </div>
 
 <!-- Modal -->
-<div *ngIf="" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal-backdrop fade show" *ngIf="mostrarModal"></div>
+ <div class="modal fade show d-block" tabindex="-1" *ngIf="mostrarModal" role="dialog"></div>
+<div class="modal fade" #modalMultaRef tabindex="-1" aria-labelledby="modalMultaLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -109,6 +116,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!-- Modal de pago -->
 <div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">

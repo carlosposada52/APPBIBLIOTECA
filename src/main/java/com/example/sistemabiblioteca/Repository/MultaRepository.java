@@ -26,4 +26,17 @@ public interface MultaRepository extends JpaRepository<MultaEntity, Long> {
 List<Long> findIdsMultaByIdPrestamoIn(@Param("idPrestamos") List<Long> idPrestamos);
 
     void deleteByIdPrestamoIn(List<Long> idPrestamos);
+
+    @Query("SELECT m.prestamo.id FROM MultaEntity m WHERE m.id IN :multasIds")
+List<Long> findPrestamoIdsByMultaIds(@Param("multasIds") List<Long> multasIds);
+
+
+
+@Query("SELECT m.prestamo.id FROM MultaEntity m WHERE m.prestamo.usuario.idusuario = :usuarioId AND m.monto > 0")
+List<Long> findPrestamoIdsConMultaActivaPorUsuario(Long usuarioId);
+
+ @Query("SELECT m FROM MultaEntity m WHERE m.prestamo.usuario.id = :idUsuario")
+List<MultaEntity> findByPrestamoUsuarioId(@Param("idUsuario") Long idUsuario);
+
+
 }

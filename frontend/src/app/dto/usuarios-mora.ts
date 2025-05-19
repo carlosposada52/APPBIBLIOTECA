@@ -2,7 +2,7 @@ import { MultaDto } from "./multa-dto";
 
 export interface UsuariosMora {
 
-      idUsuario: number;
+  idUsuario: number;
   idMulta: number;
   estadoPenalizacion: number;
   fechaRegistro: string;

@@ -65,6 +65,7 @@
             <span class="align-middle">Devolver MATERIAL</span>
           </a>
         </li>
+       
     
         <li class="sidebar-item" *ngIf="user.roles[0].roleEnum == 'ESTUDIANTE' " routerLink="/mis_prestamos"
           routerLinkActive="active">
@@ -80,6 +81,21 @@
             <i class="align-middle" data-feather="user"></i>
             <span class="align-middle">VER USUARIOS MORA</span>
           </a>
+        </li>
+         <li
+                class="sidebar-item d-flex align-items-center justify-content-between"
+                *ngIf="!estaPenalizado() && (user.roles[0].roleEnum === 'ESTUDIANTE' || user.roles[0].roleEnum === 'BIBLIOTECARIO')"
+                routerLink="/notificacion_user"
+                routerLinkActive="active"
+              >
+                <a class="sidebar-link d-flex align-items-center">
+                  <i class="align-middle me-2" data-feather="sliders"></i>
+                  <span class="align-middle">MIS NOTIFICACIONES</span>
+                </a>
+
+                <span *ngIf="unreadCount > 0" class="badge bg-danger ms-2">
+                  {{ unreadCount }}
+                </span>
         </li>
 
         <li class="sidebar-item" *ngIf=" user.roles[0].roleEnum == 'BIBLIOTECARIO' || user.roles[0].roleEnum == 'ADMIN'" routerLink="/renovar_carnet"

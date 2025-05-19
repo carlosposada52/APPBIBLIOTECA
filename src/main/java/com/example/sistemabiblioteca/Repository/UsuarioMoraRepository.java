@@ -6,11 +6,14 @@ import java.util.Optional;
 
 import org.antlr.v4.runtime.atn.SemanticContext.OR;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.sistemabiblioteca.persistence.entity.Usuarios_MoraEntity;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface UsuarioMoraRepository extends JpaRepository<Usuarios_MoraEntity,Long>{
@@ -30,4 +33,6 @@ boolean existsMoraActivaByUsuarioId(@Param("id_usuario") Long id_usuario);
 
 
     void deleteByIdMultaIn(List<Long> idMultas);
-}
+
+    
+ }

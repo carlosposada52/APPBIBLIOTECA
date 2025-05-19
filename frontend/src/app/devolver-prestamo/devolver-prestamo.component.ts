@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild,AfterViewInit, } from '@angular/core';
 import { PerfilDTO } from '../dto/perfil-dto';
 import { PrestamoService } from '../prestamo.service';
 import { Router } from '@angular/router';
 import { PerfilService } from '../services/perfil.service';
 import { Prestamo } from '../prestamo';
-
+import { Modal } from 'bootstrap';
 import { OnInit } from '@angular/core';
 import { MultaDto } from '../dto/multa-dto';
 import { MultaService } from '../services/multa.service';
@@ -16,7 +16,7 @@ import { MultaService } from '../services/multa.service';
   templateUrl: './devolver-prestamo.component.html',
   styleUrls: ['./devolver-prestamo.component.css']
 })
-export class DevolverPrestamoComponent implements OnInit {
+export class DevolverPrestamoComponent implements OnInit, AfterViewInit {
 
   prestamos: Prestamo[] = [];
   prestamosconMulta: MultaDto[]=[];
@@ -29,7 +29,12 @@ export class DevolverPrestamoComponent implements OnInit {
   prestamoMultaDia: MultaDto;
   numeroTarjeta: string = '';
 tipoTarjeta: string = 'Desconocido';
+mostrarModal: boolean = false;
 
+
+
+ @ViewChild('modalMultaRef') modalMultaRef!: ElementRef;
+  modalMultaInstance: any;
 
   constructor(
     private prestamoServicio: PrestamoService,
@@ -79,6 +84,7 @@ tipoTarjeta: string = 'Desconocido';
     });
   }
 
+
   devolverPrestamo(idPrestamo: number): void {
     this.prestamoServicio.devolverPrestamo(idPrestamo).subscribe({
       next: (msg) => {
@@ -92,6 +98,7 @@ tipoTarjeta: string = 'Desconocido';
     });
   }
   
+  
 detectarTipoTarjeta() {
   if (this.numeroTarjeta.startsWith('4')) {
     this.tipoTarjeta = 'Visa';
@@ -101,5 +108,17 @@ detectarTipoTarjeta() {
     this.tipoTarjeta = 'Desconocido';
   }
 }
+
+  ngAfterViewInit(): void {
+    if (this.modalMultaRef) {
+      this.modalMultaInstance = new Modal(this.modalMultaRef.nativeElement);
+    }
+  }
+
+  abrirModal(): void {
+    if (this.modalMultaInstance) {
+      this.modalMultaInstance.show();
+    }
+  }
 }
 

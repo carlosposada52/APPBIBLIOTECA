@@ -57,7 +57,9 @@
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/vendor/tilt/tilt.jquery.min.js",
               "src/assets/js/plugins/chartjs.min.js",
-               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+                 "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
              
             ]
           },

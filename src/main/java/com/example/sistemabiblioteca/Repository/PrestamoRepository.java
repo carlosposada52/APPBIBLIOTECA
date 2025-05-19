@@ -29,11 +29,17 @@ public interface PrestamoRepository extends JpaRepository<PrestamoEntity, Long> 
     List<Long> findIdsPrestamoByIdUsuario(@Param("usuarioId") Long usuarioId);
 
     
-   @Query("SELECT p FROM PrestamoEntity p WHERE p.usuario.id = :usuarioId AND p.fechaDevolucionReal IS NULL")
-List<PrestamoEntity> findPrestamosActivosByUsuarioId(@Param("usuarioId") Long usuarioId);
+    @Query("SELECT p FROM PrestamoEntity p WHERE p.usuario.id = :usuarioId AND p.fechaDevolucionReal IS NULL")
+    List<PrestamoEntity> findPrestamosActivosByUsuarioId(@Param("usuarioId") Long usuarioId);
 
     @Modifying
     @Transactional
     @Query("UPDATE PrestamoEntity p SET p.fecha_devolucion = :nuevaFecha WHERE p.id_Prestamo = :prestamoId")
     void actualizarFechaDevolucionPorId(@Param("prestamoId") Long prestamoId, @Param("nuevaFecha") Date nuevaFecha);
+
+      // Encontrar préstamos por vencer (rango de fechas)
+    @Query("SELECT p FROM PrestamoEntity p WHERE p.fecha_devolucion BETWEEN :fechaInicio AND :fechaFin")
+    List<PrestamoEntity> findPrestamosPorVencer(
+        @Param("fechaInicio") Date fechaInicio,
+        @Param("fechaFin") Date fechaFin);
     }

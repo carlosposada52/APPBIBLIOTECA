@@ -28,6 +28,7 @@ import { MisPrestamosComponent } from './mis-prestamos/mis-prestamos.component';
 import { PagarMultasComponent } from './pagar-multas/pagar-multas.component';
 import { UsuariosMoraComponent } from './usuarios-mora/usuarios-mora.component';
 import { RenovarCarnetComponent } from './renovar-carnet/renovar-carnet.component';
+import { NotificacionComponent } from './notificacion/notificacion.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,7 @@ const routes: Routes = [
       { path: 'devolver_prestamo',component:DevolverPrestamoComponent},
       { path: 'mis_prestamos',component:MisPrestamosComponent},
       { path: 'pagar_multa',component:PagarMultasComponent},
+      { path: 'notificacion_user',component:NotificacionComponent},
       { path: 'usuarios_mora', component:UsuariosMoraComponent, canActivate: [adminGuard]},
       { path: 'renovar_carnet', component:RenovarCarnetComponent, canActivate: [adminGuard]},
 

@@ -106,6 +106,10 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/api/historial/usuario/{usuarioId}").permitAll();
 
                     http.requestMatchers(HttpMethod.GET, "/api/usuarios_mora/all").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/api/notificaciones/usuario/{idUsuario}").permitAll();
+                    http.requestMatchers(HttpMethod.PATCH, "/api/notificaciones/marcar-leida/{idNotificacion}").permitAll();
+
+                     http.requestMatchers(HttpMethod.GET, "/api/notificaciones/contar-no-leidas/{Id_usuario}").permitAll();
                     
                     http.requestMatchers(HttpMethod.POST, "/api/pagar-multas/{idUsuario}").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/user/{id}").permitAll();

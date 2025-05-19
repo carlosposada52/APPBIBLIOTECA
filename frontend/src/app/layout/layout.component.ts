@@ -9,6 +9,7 @@ import { PerfilDTO } from '../dto/perfil-dto';
 import { PerfilService } from '../services/perfil.service';
 import { MultaDto } from '../dto/multa-dto';
 import { MultaService } from '../services/multa.service';
+import { NotificacionService } from '../services/notificacion.service';
 
 @Component({
   selector: 'app-layout',
@@ -27,9 +28,14 @@ export class LayoutComponent {
   multa: MultaDto[] = [];
   esPenalizado: boolean = false;
    
+  
+  unreadCount = 0;
+  user1: any;
+
   constructor(private router: Router,private authService: AuthService, private userService: UserService, private route: ActivatedRoute,
     private  usuarioService:PerfilService,
-    private usuarioMulta:MultaService
+    private usuarioMulta:MultaService,
+    private notificacionService: NotificacionService
   ) {
 
     this.router.events
@@ -57,6 +63,18 @@ export class LayoutComponent {
   }
 
   ngOnInit(): void {
+
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData);
+    }
+
+    this.notificacionService.unreadCount$.subscribe(count => {
+      this.unreadCount = count;
+    });
+
+    this.notificacionService.actualizarContador(); // Llamada inicial
+  
 
     
     this.authService.getUserRole().subscribe({
@@ -151,6 +169,9 @@ export class LayoutComponent {
        break;
       case '/renovar_carnet':
         this.currentRouteName = 'Renovacion del carnet';
+       break;
+      case '/notificacion_user':
+        this.currentRouteName = 'Mis notificaciones';
        break;
       default:
         this.currentRouteName = 'Dashboard';
